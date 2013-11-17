@@ -14,13 +14,16 @@ Create the 'cursor' crosshair
 """
 class cursor(gameSprite):
     """
-    
+    Set initial position and sprite image, remove system cursor,
+    and initialise relevant variables
     """
     def __init__(self, position):
         gameSprite.__init__(self, position)
-        self.setSingle('gui/cur_normal.png', SCALE)
+        #self.setSingle('gui/cur_normal.png', SCALE)
+        # no longer needs it's own file
+        self.setTexture('gui_sheet.png', (0, 0, 32, 32))
         self.rect.center = position
-        #pygame.mouse.set_visible(False)
+        pygame.mouse.set_visible(False)
         self.clicked = False
         self.action = 'punch'
         self.angle = 0
@@ -37,7 +40,9 @@ class cursor(gameSprite):
         elif CLICK and not self.clicked and self.has_transitioned:
             self.click(position)
         elif not CLICK and self.clicked == True:
-            self.setSingle('gui/cur_normal.png', SCALE, self.angle)
+            #self.setSingle('gui/cur_normal.png', SCALE, self.angle)
+            # no longer needs own file
+            self.setTexture('gui_sheet.png', (0, 0, 32, 32)) # normal size cursor
             self.clicked = False
             self.has_transitioned = False
         self.rect.center = position
@@ -46,12 +51,15 @@ class cursor(gameSprite):
     
     """
     def click(self, position):
-        self.setSingle('gui/cur_small.png', SCALE, self.angle)
+        # no longer needs own file
+        self.setTexture('gui_sheet.png', (64, 0, 32, 32)) # small size cursor
         self.clicked = True
         
     """
     
     """
     def transitionClick(self, position):
-        self.setSingle('gui/cur_middle.png', SCALE, self.angle)
+        # no longer needs own file
+        self.setTexture('gui_sheet.png', (32, 0, 32, 32)) # med size cursor
+        #self.setSingle('gui/cur_middle.png', SCALE, self.angle)
         self.has_transitioned = True
