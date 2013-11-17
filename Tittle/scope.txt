@@ -190,7 +190,7 @@ Upgrades: (all will have aesthetics)
 		Santa Tittle-
 			Tittle dresses up in his santa suit
 			
-================================================ ENEMIS =============================================
+================================================ ENEMIES =============================================
 	
 Enemies
 	Creatures:
