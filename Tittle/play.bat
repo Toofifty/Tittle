@@ -1,0 +1,2 @@
+python play.py
+pause

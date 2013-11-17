@@ -1,0 +1,249 @@
+Protagonist: Tittle
+
+Lore: Undetermined
+
+================================================ UPGRADES =============================================
+
+Upgrades: (all will have aesthetics)
+	Armour
+		3 tiers:
+			Leather-
+				Low protection
+				High agile (faster sprint, higher jump)
+				Low durability
+				Low weight
+			
+			Stone-
+				High protection
+				Low agile (heavily reduced sprint, little/no jump)
+				Medium durability
+				High weight
+				
+			Steel-
+				Medium protection
+				Medium agility (regular sprint and jump)
+				High durability
+				Medium weight
+			
+	
+	Weapons
+		Melee
+			5 tiers:
+				Wooden dagger-
+					Low damage
+					Low weight
+					Low durability
+					
+				Stone axe- 
+					High damage
+					High weight
+					Medium durability
+					
+				Steel sword-
+					Medium damage
+					Medium weight
+					High durability
+					
+				Gold sword-
+					Max damage
+					High weight
+					Min durability
+					
+				Rare/Special/Ornate sword-
+					Max damage
+					High weight
+					Low durability
+				
+		Range/magic
+			x tiers:
+				Short bow-
+					Low damage
+					Low weight
+					Low range
+					Low durability
+					Low rate
+					
+				Long bow-
+					Low damage
+					Low weight
+					Medium range
+					Low durability
+					Min rate
+					
+				Cross bow-
+					Low damage
+					Medium weight
+					Medium range
+					Medium durability
+					Low rate
+					
+				---
+					
+				Revolver-
+					Medium damage
+					Low weight
+					Low range
+					Medium durability
+					Medium rate
+					
+				Shotgun-
+					Max damage
+					Medium weight
+					Low range
+					Medium durability
+					Min rate
+					
+				Light Machine Gun-
+					Medium damage
+					High weight
+					Medium range
+					Low durability
+					High rate
+					
+				Sniper-
+					High damage
+					High weight
+					Max range
+					Medium durability
+					Medium rate
+				
+				---
+					
+				Air zap-
+					Min damage
+					Low weight
+					Low range
+					Max durability
+					High rate
+					
+				Air bolt-
+					Low damage
+					Medium weight
+					Medium range
+					Medium durability
+					Medium rate
+					
+				Fire zap-
+					Low damage
+					Low weight
+					Low range
+					High durability
+					Medium rate
+					
+				Fire bolt-
+					Medium damage
+					Medium weight
+					Medium range
+					Medium durability
+					Low rate 
+					
+				Lightning bolt-
+					High damage
+					Medium weight
+					Medium range
+					Low durability
+					Min rate				
+	
+	Powerups
+		Feathered boots-
+			Decreases weight, increases jump
+			
+		Lead boots-
+			Increases weight, nullifies jump
+			
+		Sorcerer's ring-
+			Increases magic damage
+			
+		Big fan-
+			Increases air magic damage
+			
+		Rubber boots-
+			Increases lightning magic damage
+			
+		Bow sights-
+			Increases bow range and weight
+			
+		Gun sights-
+			Increases gun range and weight (excl. sniper)
+			
+		Glider-
+			Decreases acceleration downwards
+			
+		Zipline-
+			Shoot a zipline from a revolver to climb on
+			
+		
+	
+	Purely Aesthetic Mods
+		Colours-
+			ROYGBIV, possibly a selector
+		
+		Skeleton Tittle-
+			Tittle turns into a set of bones
+			
+		Solid Tittle-
+			Tittle loses his slight-gooeyness
+			
+		Blob Tittle-
+			Tittle turns into a Gish-like blob
+	
+		Santa Tittle-
+			Tittle dresses up in his santa suit
+			
+================================================ ENEMIS =============================================
+	
+Enemies
+	Creatures:
+		Beetle-
+			Min damage
+			Medium health
+			High speed
+			
+		Mosquito-
+			Min damage
+			Low health
+			High speed
+			
+		Pile of goo-
+			Low damage
+			High health
+			Low speed
+
+	Regular:
+		Mercenary Sniper-
+			Medium damage
+			Medium range
+			Low health
+		
+		Mercenary Soldier-
+			Medium damage
+			Low health
+			Medium speed
+
+	Undead:
+		Skeleton Archer-
+			High damage
+			Medium range
+			Low health
+		
+		Skeleton Soldier-
+			High damage
+			Medium health
+			Medium speed
+	
+		Skeleton Mage-
+			High damage
+			High range
+			Low health
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
