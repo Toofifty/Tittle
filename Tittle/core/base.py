@@ -31,7 +31,7 @@ Loads simple images and converts with colourKey intact
 """
 def loadImage(imagePath, colourKey = None):
     try:
-        image = pygame.image.load(imagePath).convert_alpha()
+        image = pygame.image.load(imagePath)
     except pygame.error, message:
         print "Cannot load image: ", os.path.abspath(imagePath)
         raise SystemExit, message
@@ -50,7 +50,7 @@ class spriteSheet(object):
     """
     def __init__(self, filename):
         try:
-            self.sheet = pygame.image.load(filename).convert_alpha()
+            self.sheet = pygame.image.load(filename)
         except pygame.error, message:
             print 'Unable to load spritesheet image:', filename
             raise SystemExit, message
@@ -61,7 +61,7 @@ class spriteSheet(object):
     def image_at(self, rect, colorkey = None):
         # Loads image from x,y,x+offset,y+offset
         rect = pygame.Rect(rect)
-        image = pygame.Surface(rect.size).convert_alpha()
+        image = pygame.Surface(rect.size)
         image.blit(self.sheet, (0, 0), rect)
         if colorkey is not None:
             if colorkey is -1:

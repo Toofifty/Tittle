@@ -142,7 +142,33 @@ Upgrades: (all will have aesthetics)
 					Medium weight
 					Medium range
 					Low durability
-					Min rate				
+					Min rate		
+					
+				---
+				
+				(Magic/bow hybrid)
+				Spirit bow-
+					High damage
+					Min weight
+					Medium range
+					High durability
+					Low rate
+					
+				(Bow/gun hybrid)
+				Automatic cross bow-
+					High damage
+					High weight
+					High range
+					High durability
+					High rate
+					
+				(Magic/gun hybrid)
+				Laser gun-
+					High damage
+					Medium weight
+					Medium range
+					High durability
+					Medium rate		
 	
 	Powerups
 		Feathered boots-
