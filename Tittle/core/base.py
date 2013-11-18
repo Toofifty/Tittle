@@ -22,6 +22,7 @@ CYAN = (0, 255, 255)
 
 SPRITES_FOLDER = 'sprites/'
 MAPS_FOLDER = 'maps/'
+ITEMS_FOLDER = 'items/'
 
 FPS = 30
 TILE_SIZE = 32

@@ -7,19 +7,19 @@ Lore: Undetermined
 Upgrades: (all will have aesthetics)
 	Armour
 		3 tiers:
-			Leather-1
+			Leather- 1
 				Low protection
 				High agile (faster sprint, higher jump)
 				Low durability
 				Low weight
 			
-			Stone-2
+			Stone- 2
 				High protection
 				Low agile (heavily reduced sprint, little/no jump)
 				Medium durability
 				High weight
 				
-			Steel-3
+			Steel- 3
 				Medium protection
 				Medium agility (regular sprint and jump)
 				High durability
@@ -29,27 +29,27 @@ Upgrades: (all will have aesthetics)
 	Weapons
 		Melee
 			5 tiers:
-				Wooden dagger- 1
+				Wooden- 1
 					Low damage
 					Low weight
 					Low durability
 					
-				Stone axe- 2
+				Stone- 2
 					High damage
 					High weight
 					Medium durability
 					
-				Steel sword- 3
+				Steel- 3
 					Medium damage
 					Medium weight
 					High durability
 					
-				Gold sword- 4
+				Gold- 4
 					Max damage
 					High weight
 					Min durability
 					
-				Rare/Special/Ornate sword- 5
+				Rare/Special/Ornate- 5
 					Max damage
 					High weight
 					Low durability
@@ -148,7 +148,7 @@ Upgrades: (all will have aesthetics)
 				
 				(Magic/bow hybrid)
 				Spirit bow- 5
-					High damage
+					Max damage
 					Min weight
 					Medium range
 					High durability
@@ -171,7 +171,7 @@ Upgrades: (all will have aesthetics)
 					Medium rate		
 	
 	Powerups
-		Feathered boots-
+		Feathered boots- 
 			Decreases weight, increases jump
 			
 		Lead boots-
@@ -180,22 +180,22 @@ Upgrades: (all will have aesthetics)
 		Sorcerer's ring-
 			Increases magic damage
 			
-		Big fan-
+		Big fan- 3
 			Increases air magic damage
 			
-		Rubber boots-
+		Rubber boots- 4
 			Increases lightning magic damage
 			
-		Bow sights-
+		Bow sights- 3
 			Increases bow range and weight
 			
-		Gun sights-
+		Gun sights- 4
 			Increases gun range and weight (excl. sniper)
 			
-		Glider-
+		Glider- 5
 			Decreases acceleration downwards
 			
-		Zipline-
+		Zipline- 5
 			Shoot a zipline from a revolver to climb on
 			
 		
@@ -280,8 +280,25 @@ Enemies
 	
 ======================================== FUNCTIONS =========================================
 
+Hitpoints
+	hp = 20 * math.sqrt ( health )
+	
+Mana points
+	mp = 20 * math.sqrt( mana )
+
 Item costs
-	= 3 * tier **2
+	cost = 3 * item_tier **2
+	
+Hit damage
+	hd = math.sqrt ( strength ) * weapon_damage
+
+Skillpoint algorithm
+	sp = 10 * math.sqrt ( 2 ** ( ( level-1 ) / 2.5 ) )
+
+Sprint mult + double jump mult
+	mult = math.sqrt ( agility )
+	
+
 
 Random chest loot
 	
@@ -292,6 +309,17 @@ Random monster loot
 	
 
 	
-	
+========================================= PLAYER ===========================================
+
+Strength
+Defence
+Accuracy
+Mana
+Health
+
+Agility
+Brewing
+
+
 	
 	
