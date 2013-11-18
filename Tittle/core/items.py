@@ -2,7 +2,9 @@
 
 
 import base, pygame
-import ElementTree
+import xml.etree.ElementTree as et
+
+from sprites import gameSprite
 
 """
 Creates an 'item' object (gamesprite) ready to be loaded into game
@@ -57,4 +59,34 @@ class item(gameSprite):
         except: print "Error (item has no rate attribute?): ", sys.exc_info()[0]
         
         
+"""
+Loads all item data from the items.xml file
+"""
+class itemData(object):
+    """
+    
+    """
+    def __init__(self):
+        tree = et.parse('../assets/items.xml')
+        self.data = tree.getroot()
+        """
+        for child in self.data:
+            print '\n'
+            print child.get('name')
+            for grandchild in child:
+                print '   ', grandchild.tag,': ', grandchild.text"""
+                
+    """
+    Returns all data for item_name provided
+    (no format or order yet, soo... don't use)
+    """
+    def getData(self, item_name):
+        attribs = []
+        for item in self.data:
+            if item.get('name') == item_name:
+                print 'found item: ',item_name
+                for attrib in item:
+                    attribs.append(attrib.text)
+                    
+        return attribs
         

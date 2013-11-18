@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<data>
+	<item name="Wooden stick">
+		<sheet_loc>(0, 0, 32, 32)</sheet_loc>
+		<type>melee</type>
+		<class>wood</class>
+		<tier>1</tier>
+		<weight>.5</weight>
+		<durability>10</durability>
+		<damage>1</damage>
+		<rate>1</rate>
+	</item>
+	<item name="Wooden dagger">
+		<sheet_loc>(0, 32, 32, 32)</sheet_loc>
+		<type>melee</type>
+		<class>wood</class>
+		<tier>1</tier>
+		<weight>.6</weight>
+		<durability>20</durability>
+		<damage>1.5</damage>
+		<rate>1</rate>
+	</item>
+</data>
