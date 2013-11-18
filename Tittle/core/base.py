@@ -165,3 +165,14 @@ def rot_center(image, angle):
     rot_rect.center = rot_image.get_rect().center
     rot_image = rot_image.subsurface(rot_rect).copy()
     return rot_image
+"""
+Read text directly from a text file, creating an array with each line
+as a value, and line no. as index
+"""
+def readTxt(source):
+    lines = []
+    with open(soruce, 'rb') as source:
+        for line in source:
+            l = line.split('\n')
+            lines.append(l)
+    return lines
