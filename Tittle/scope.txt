@@ -7,19 +7,19 @@ Lore: Undetermined
 Upgrades: (all will have aesthetics)
 	Armour
 		3 tiers:
-			Leather-
+			Leather-1
 				Low protection
 				High agile (faster sprint, higher jump)
 				Low durability
 				Low weight
 			
-			Stone-
+			Stone-2
 				High protection
 				Low agile (heavily reduced sprint, little/no jump)
 				Medium durability
 				High weight
 				
-			Steel-
+			Steel-3
 				Medium protection
 				Medium agility (regular sprint and jump)
 				High durability
@@ -29,48 +29,48 @@ Upgrades: (all will have aesthetics)
 	Weapons
 		Melee
 			5 tiers:
-				Wooden dagger-
+				Wooden dagger- 1
 					Low damage
 					Low weight
 					Low durability
 					
-				Stone axe- 
+				Stone axe- 2
 					High damage
 					High weight
 					Medium durability
 					
-				Steel sword-
+				Steel sword- 3
 					Medium damage
 					Medium weight
 					High durability
 					
-				Gold sword-
+				Gold sword- 4
 					Max damage
 					High weight
 					Min durability
 					
-				Rare/Special/Ornate sword-
+				Rare/Special/Ornate sword- 5
 					Max damage
 					High weight
 					Low durability
 				
 		Range/magic
 			x tiers:
-				Short bow-
+				Short bow- 1
 					Low damage
 					Low weight
 					Low range
 					Low durability
 					Low rate
 					
-				Long bow-
+				Long bow- 1
 					Low damage
 					Low weight
 					Medium range
 					Low durability
 					Min rate
 					
-				Cross bow-
+				Cross bow- 2
 					Low damage
 					Medium weight
 					Medium range
@@ -79,28 +79,28 @@ Upgrades: (all will have aesthetics)
 					
 				---
 					
-				Revolver-
+				Revolver- 2
 					Medium damage
 					Low weight
 					Low range
 					Medium durability
 					Medium rate
 					
-				Shotgun-
+				Shotgun- 3 
 					Max damage
 					Medium weight
 					Low range
 					Medium durability
 					Min rate
 					
-				Light Machine Gun-
+				Light Machine Gun- 3
 					Medium damage
 					High weight
 					Medium range
 					Low durability
 					High rate
 					
-				Sniper-
+				Sniper- 4
 					High damage
 					High weight
 					Max range
@@ -109,35 +109,35 @@ Upgrades: (all will have aesthetics)
 				
 				---
 					
-				Air zap-
+				Air zap- 1
 					Min damage
 					Low weight
 					Low range
 					Max durability
 					High rate
 					
-				Air bolt-
+				Air bolt- 2
 					Low damage
 					Medium weight
 					Medium range
 					Medium durability
 					Medium rate
 					
-				Fire zap-
+				Fire zap- 2
 					Low damage
 					Low weight
 					Low range
 					High durability
 					Medium rate
 					
-				Fire bolt-
+				Fire bolt- 3
 					Medium damage
 					Medium weight
 					Medium range
 					Medium durability
 					Low rate 
 					
-				Lightning bolt-
+				Lightning bolt- 4
 					High damage
 					Medium weight
 					Medium range
@@ -147,7 +147,7 @@ Upgrades: (all will have aesthetics)
 				---
 				
 				(Magic/bow hybrid)
-				Spirit bow-
+				Spirit bow- 5
 					High damage
 					Min weight
 					Medium range
@@ -155,7 +155,7 @@ Upgrades: (all will have aesthetics)
 					Low rate
 					
 				(Bow/gun hybrid)
-				Automatic cross bow-
+				Automatic cross bow- 5
 					High damage
 					High weight
 					High range
@@ -163,7 +163,7 @@ Upgrades: (all will have aesthetics)
 					High rate
 					
 				(Magic/gun hybrid)
-				Laser gun-
+				Laser gun- 5
 					High damage
 					Medium weight
 					Medium range
@@ -278,8 +278,19 @@ Enemies
 			Max health
 	
 	
+======================================== FUNCTIONS =========================================
+
+Item costs
+	= 3 * tier **2
+
+Random chest loot
 	
 	
+Random monster loot
+	50% coin drop
+	~diffuculty coins	
+	
+
 	
 	
 	
