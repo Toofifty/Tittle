@@ -272,7 +272,10 @@ Enemies
 			High damage
 			Max health
 	
-	
+		The Narwhal-
+			Max damage
+			Medium range
+			Max health
 	
 	
 	
