@@ -237,8 +237,14 @@ Enemies
 			Low health
 	
 	Bosses:
-		
+		Jot-
+			High damage
+			Low range
+			Max health
 	
+		The General-
+			High damage
+			Max health
 	
 	
 	
