@@ -115,16 +115,12 @@ class playState:
         mouse.update(pygame.mouse.get_pos(), self.CLICK)
         
         self.drawTiles(tiles)
-        
-        #screen.blit(player.image, player.rect)
-        #render.dirty(player.rect)
-        #screen.blit(mouse.image, mouse.rect)
-        #render.dirty(mouse.rect)
         screen.fill(CYAN)
         rects = allsprites.draw(screen)
-        pygame.display.update(rects)
         
-        #render.update()
+        drawText(pygame.image.load('test.png'), 'test', 20, BLACK, True)
+        
+        pygame.display.update(rects)
         
     """
     Handles the input from all sources, and translates to movements or events
