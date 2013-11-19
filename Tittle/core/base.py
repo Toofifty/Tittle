@@ -49,7 +49,7 @@ def drawText(source, text, size, colour, shadow = False, copy = False):
 """
 Rotate an image whilst keeping it's centre and size intact
 """
-def rot_center(image, angle):
+def rotatecentre(image, angle):
     orig_rect = image.get_rect()
     rot_image = pygame.transform.rotate(image, angle)
     rot_rect = orig_rect.copy()
@@ -61,9 +61,9 @@ def rot_center(image, angle):
 Read text directly from a text file, creating an array with each line
 as a value, and line no. as index
 """
-def readTxt(source):
+def read(source):
     lines = []
-    with open(soruce, 'rb') as source:
+    with open(source, 'rb') as source:
         for line in source:
             l = line.split('\n')
             lines.append(l)
@@ -74,16 +74,28 @@ Load a sheet into memory, ready to have sprites taken from it
 """
 class sheetload(object):
     
+    """
+    Load the sheet into memory
+    """
     def __init__(self, sheet):
         self.sheet = pygame.image.load(SPRITES_FOLDER + sheet).convert_alpha()
         
+    """
+    Get an image at position rect
+    """
     def getimage(self, rect):
         image = self.sheet.subsurface(rect)
         return image
     
+    """
+    Load a set of images, located at positions in rects
+    """
     def getimages(self, rects):
         return [self.getimage(rect) for rect in rects]
     
+    """
+    Load a strip of images seperately
+    """
     def getstrip(self, rect, frames):
         tups = [(rect[0]+rect[2]*x, rect[1], rect[2], rect[3])
                 for x in range(frames)]
@@ -92,10 +104,13 @@ class sheetload(object):
 
 """
 Load a set of sprite images into an animation, with the next frame
-accessible thourgh object.next()
+accessible through object.next()
 """
 class animload(object):
     
+    """
+    Initialise the animation and load the strip
+    """
     def __init__(self, file, rect, frames, loop = True):
         self.sheet = sheetload(file)
         self.images = self.sheet.getstrip(rect, frames)
@@ -104,6 +119,9 @@ class animload(object):
         self.loop = loop
         self.frames = 2
     
+    """
+    Grab the next frame in the set of images
+    """
     def next(self):
         if self.i >= len(self.images):
             if not self.loop:

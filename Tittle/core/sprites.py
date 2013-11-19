@@ -44,15 +44,6 @@ class gameSprite(pygame.sprite.DirtySprite):
     def getNextFrame(self):
         if self.isAnim:
             self.image = self.strips.next()
-        
-    """
-    Sets a static image for a sprite (used for tile sprites)
-    May be used for own class soon.
-    """
-    def setTexture(self, ss, pos, size_mult = 1):
-        self.image = pygame.transform.scale(base.spriteSheet(SPRITES_FOLDER + ss).image_at(pos), (size_mult * pos[2], size_mult * pos[3]))
-        _, _, self.rect[2], self.rect[3] = pygame.Rect(self.image.get_rect())
-        self.src_image = self.image
     
     """
     Set a animation and strip for a sprite
@@ -87,8 +78,8 @@ class gameSprite(pygame.sprite.DirtySprite):
     """
     Niche method for the occasional sprite that continually rotates
     """
-    def rotate(self, angle = 10):
-        self.image = rot_center(self.src_image, angle)
+    def rotate(self, angle):
+        self.image = rotatecentre(self.src_image, angle)
         return angle
 
     """

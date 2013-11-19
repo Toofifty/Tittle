@@ -361,5 +361,83 @@ Agility
 Brewing
 
 
+============================================ SPRITES ===========================================
+
+1F = 33 milliseconds
+Fl = Frame loop
+
+PLAYER-
+	Basic animations-
+		- Idle (right)
+			- No weapon 8Fl
+			- Melee 8Fl
+			- Gun 8Fl
+			- Power 8Fl
+			
+		- Attack left
+			- No weapon 8F
+			- Melee 8F
+			- Gun
+				- 0° 8F
+				- 45° 8F
+			- Power 8F
+		
+		- Attack right
+			- No weapon 8F
+			- Melee 8F
+			- Gun
+				- 0° 8F
+				- 45° 8F
+				- 90° 8F
+			- Power 16F
+		
+		- Walk left
+			- No weapon 16Fl
+			- Melee 16Fl
+			- Gun
+				- 0° 16Fl
+				- 45° 16Fl
+				- 90° 16Fl
+			- Power 16Fl
+		
+		- Walk right
+			- No weapon 16Fl
+			- Melee 16Fl
+			- Gun
+				- 0° 16Fl
+				- 45° 16Fl
+				- 90° 16Fl
+			- Power 16Fl
+		
+		- Sprint left 16Fl
+		- Sprint right 16Fl
+		
+		- Sprint attack right
+			- Melee 16F
+			- Power 16F
+		
+		- Sprint attack left
+			- Melee 16F
+			- Power 16F
+		
+		- Jump left 16F
+		- Jump right 16F
+		- Double jump left 16F
+		- Double jump right 16F
 	
+	Transitions-
+		- Gun > holster before sprinting 4F
+		- Gun from holster after sprinting 4F
 	
+	Random-
+		- Idle 'look around' 32F
+			~ looks around, checks phone-like device
+		- Idle 'kick dirt' 32F
+			~ puts hands in pockets, kicks dirt out of boredom
+		- Idle 'strange bug' 64F
+			~ sees a bug flying past/around him, looks confused then swipes it away
+		
+	Specific-
+
+
+
