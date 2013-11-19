@@ -2,6 +2,26 @@ Protagonist: Tittle
 
 Lore: Undetermined
 
+================================================ UNIMPLEMENTED IDEAS =======================================
+
+: No order, just brainstorms
+
+- Shop system
+- Random mob loot
+- Creation of rare weapons/artefacts
+- Quests/npcs
+- Skillpoints from killing enemies
+
+A ~ in later text means possible ideas
+
+====================== IDEAS WE'RE NOT DOING ========================
+
+- Per weapon xp
+- Custom armour pieces
+- Weapon/armour upgrades
+- Multiple weapons per tier (yet)
+
+
 ================================================ UPGRADES =============================================
 
 Upgrades: (all will have aesthetics)
@@ -9,19 +29,19 @@ Upgrades: (all will have aesthetics)
 		3 tiers:
 			Leather- 1
 				Low protection
-				High agile (faster sprint, higher jump)
 				Low durability
 				Low weight
 			
 			Stone- 2
 				High protection
-				Low agile (heavily reduced sprint, little/no jump)
 				Medium durability
 				High weight
+				~ hinders all extra movement
+					could be useful for quests that you
+					need to sink in water, etc
 				
 			Steel- 3
 				Medium protection
-				Medium agility (regular sprint and jump)
 				High durability
 				Medium weight
 			

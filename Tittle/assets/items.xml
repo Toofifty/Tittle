@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <data>
-	<item name="Wooden stick">
+	<item name="Wooden dagger">
 		<sheet_loc>(0, 0, 32, 32)</sheet_loc>
 		<type>melee</type>
 		<class>wood</class>
@@ -10,7 +10,7 @@
 		<damage>1</damage>
 		<rate>1</rate>
 	</item>
-	<item name="Wooden dagger">
+	<item name="Stone sword">
 		<sheet_loc>(0, 32, 32, 32)</sheet_loc>
 		<type>melee</type>
 		<class>wood</class>
