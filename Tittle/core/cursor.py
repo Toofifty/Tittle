@@ -21,7 +21,7 @@ class cursor(gameSprite):
         gameSprite.__init__(self, position)
         #self.setSingle('gui/cur_normal.png', SCALE)
         # no longer needs it's own file
-        self.setTexture('gui_sheet.png', (0, 0, 32, 32))
+        self.setTexture('other/gui.png', (0, 0, 32, 32))
         self.rect.center = position
         pygame.mouse.set_visible(False)
         self.clicked = False
@@ -42,7 +42,7 @@ class cursor(gameSprite):
         elif not CLICK and self.clicked == True:
             #self.setSingle('gui/cur_normal.png', SCALE, self.angle)
             # no longer needs own file
-            self.setTexture('gui_sheet.png', (0, 0, 32, 32)) # normal size cursor
+            self.setTexture('other/gui.png', (0, 0, 32, 32)) # normal size cursor
             self.clicked = False
             self.has_transitioned = False
         self.rect.center = position
@@ -52,7 +52,7 @@ class cursor(gameSprite):
     """
     def click(self, position):
         # no longer needs own file
-        self.setTexture('gui_sheet.png', (64, 0, 32, 32)) # small size cursor
+        self.setTexture('other/gui.png', (64, 0, 32, 32)) # small size cursor
         self.clicked = True
         
     """
@@ -60,6 +60,6 @@ class cursor(gameSprite):
     """
     def transitionClick(self, position):
         # no longer needs own file
-        self.setTexture('gui_sheet.png', (32, 0, 32, 32)) # med size cursor
+        self.setTexture('other/gui.png', (32, 0, 32, 32)) # med size cursor
         #self.setSingle('gui/cur_middle.png', SCALE, self.angle)
         self.has_transitioned = True
