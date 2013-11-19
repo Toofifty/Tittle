@@ -42,13 +42,8 @@ class gameSprite(pygame.sprite.DirtySprite):
     Gets the next frame for animation strips
     """
     def getNextFrame(self):
-        try:
-            if self.isAnim:
-                self.image = pygame.transform.scale(self.strips.next(), (self.size_mult * self.pos[2], self.size_mult * self.pos[3]))
-                if self.flip:
-                    self.image = pygame.transform.flip(self.image, True, False)
-        except:
-            pass
+        if self.isAnim:
+            self.image = self.strips.next()
         
     """
     Sets a static image for a sprite (used for tile sprites)
@@ -95,4 +90,27 @@ class gameSprite(pygame.sprite.DirtySprite):
     def rotate(self, angle = 10):
         self.image = rot_center(self.src_image, angle)
         return angle
-        #self.image = rot_center(self.image, speed)
+
+    """
+    
+    """
+    def sheetimageload(self, sheet, pos):
+        self.image = base.sheetload(sheet).getimage(pos)
+        _, _, self.rect[2], self.rect[3] = pygame.Rect(self.image.get_rect())
+        self.src_image = self.image
+    
+    """
+    
+    """
+    def sheetanimload(self, sheet, pos, frames, loop = True):
+        self.strips = animload(sheet, pos, frames, loop)
+        self.image = self.strips.next()
+        _, _, self.rect[2], self.rect[3] = pygame.Rect(self.image.get_rect())
+        self.isAnim = True
+        
+    """
+    
+    """
+    def imageload(self, image):
+        self.image = pygame.image.load(imagePath).convert_alpha()
+        

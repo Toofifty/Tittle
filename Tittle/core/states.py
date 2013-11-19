@@ -96,7 +96,7 @@ class playState:
     def __init__(self):
         self.UP = self.DOWN = self.LEFT = self.RIGHT = self.RUNNING = self.CLICK = False
         print 'PlayState initialised!'
-        
+
     """
     Draw the tiles that are in the array 'tiles'
     """

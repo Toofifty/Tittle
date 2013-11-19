@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+Lots of code to be replaced here, i.e all dirtysprites and such
+"""
+
 import sys, pygame
 from pygame.locals import Rect, FULLSCREEN, HWSURFACE, RLEACCEL
 

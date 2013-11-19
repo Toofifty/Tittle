@@ -50,7 +50,8 @@ class spriteSheet(object):
     """
     def __init__(self, filename):
         try:
-            self.sheet = pygame.image.load(filename).convert()
+            self.sheet = pygame.image.load(filename)
+            
         except pygame.error, message:
             print 'Unable to load spritesheet image:', filename
             raise SystemExit, message
@@ -63,6 +64,7 @@ class spriteSheet(object):
         rect = pygame.Rect(rect)
         image = pygame.Surface(rect.size)
         image.blit(self.sheet, (0, 0), rect)
+        image = image.convert()
         if colorkey is not None:
             if colorkey is -1:
                 colorkey = image.get_at((0,0))
@@ -155,6 +157,7 @@ def drawText(source, text, size, colour, shadow = False, copy = False):
     position = fontText.get_rect(centerx = rect.get_width() / 2, centery = rect.get_height() / 2)
     rect.blit(fontText, position)
     return rect
+
 """
 Rotate an image whilst keeping it's centre and size intact
 """
@@ -165,6 +168,7 @@ def rot_center(image, angle):
     rot_rect.center = rot_image.get_rect().center
     rot_image = rot_image.subsurface(rot_rect).copy()
     return rot_image
+
 """
 Read text directly from a text file, creating an array with each line
 as a value, and line no. as index
@@ -176,3 +180,50 @@ def readTxt(source):
             l = line.split('\n')
             lines.append(l)
     return lines
+
+"""
+
+"""
+class sheetload(object):
+    
+    def __init__(self, sheet):
+        self.sheet = pygame.image.load(SPRITES_FOLDER + sheet).convert_alpha()
+        
+    def getimage(self, rect):
+        image = self.sheet.subsurface(rect)
+        return image
+    
+    def getimages(self, rects):
+        return [self.getimage(rect) for rect in rects]
+    
+    def getstrip(self, rect, frames):
+        tups = [(rect[0]+rect[2]*x, rect[1], rect[2], rect[3])
+                for x in range(frames)]
+        return self.getimages(tups)
+    
+
+"""
+
+"""
+class animload(object):
+    
+    def __init__(self, file, rect, frames, loop = True):
+        self.sheet = sheetload(file)
+        self.images = self.sheet.getstrip(rect, frames)
+        self.i = 0
+        self.f = 2
+        self.loop = loop
+        self.frames = 2
+    
+    def next(self):
+        if self.i >= len(self.images):
+            if not self.loop:
+                raise StopIteration
+            else:
+                self.i = 0
+        image = self.images[self.i]
+        self.f -= 1
+        if self.f == 0:
+            self.i += 1
+            self.f = self.frames
+        return image

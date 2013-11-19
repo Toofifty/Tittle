@@ -27,7 +27,7 @@ class Player(gameSprite):
         self.yvel = 0
         self.xvel = 0
         self.onGround = False
-        self.setAnim('player/idle.png', (0, 0, 32, 32), 1, True, 16, False)
+        self.sheetanimload('player/idle.png', (0, 0, 64, 64), 16, True)
         self.rect[0] = position[0]
         self.rect[1] = position[1]
         print self.rect
@@ -124,7 +124,7 @@ class Player(gameSprite):
                 print anim + ' anim not found for player - ', sys.exc_info()[0]
                 raise
             
-            self.setAnim('player/'+ anim +'.png', (0, 0, 64, 64), 1, loop, frames, 1)
+            self.sheetanimload('player/'+ anim +'.png', (0, 0, 64, 64), frames, loop)
             print anim
     """
     Method to update the player's position and check collisions
