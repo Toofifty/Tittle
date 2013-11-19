@@ -19,6 +19,7 @@ screen = render.init(DIMENSIONS)
 pygame.display.set_icon(pygame.image.load('ico.png').convert_alpha())
 pygame.display.set_caption("Tittle's Adventures")
 screen.fill(CYAN)
+pygame.display.update()
 
 
 player = None
