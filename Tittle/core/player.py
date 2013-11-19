@@ -154,21 +154,21 @@ class Player(gameSprite):
         if DOWN:
             pass
         
-        if LEFT:
+        if LEFT and not RUNNING and not RIGHT:
             self.xvel = -WALK_SPEED
             if not UP:
                 self.startAnim('left')
             
-        if RIGHT:
+        if RIGHT and not RUNNING and not LEFT:
             self.xvel = WALK_SPEED
             if not UP:
                 self.startAnim('right')
             
-        if RUNNING and LEFT:
+        if RUNNING and LEFT and not RIGHT:
             self.xvel = -WALK_SPEED * SPRINT_MULT
             self.startAnim('runningleft')
             
-        if RUNNING and RIGHT:
+        if RUNNING and RIGHT and not RIGHT:
             self.xvel = WALK_SPEED * SPRINT_MULT
             self.startAnim('runningright')
             

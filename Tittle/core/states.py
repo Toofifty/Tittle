@@ -119,10 +119,11 @@ class playState:
     Handles the input from all sources, and translates to movements or events
     """            
     def handleInput(self):
-        
+        playtime = 0
         clock = pygame.time.Clock()
         while True:
-            clock.tick(FPS) 
+            ms = clock.tick(FPS) 
+            playtime += ms / 1000.0
             for e in pygame.event.get():
                 if e.type == KEYDOWN and e.type == QUIT: raise SystemExit, "QUIT"
                 if e.type == KEYDOWN and e.key == K_ESCAPE: raise SystemExit, "ESCAPE"
@@ -132,7 +133,7 @@ class playState:
                 if e.type == KEYDOWN and e.key == K_s: self.DOWN = True
                 if e.type == KEYDOWN and e.key == K_a: self.LEFT = True
                 if e.type == KEYDOWN and e.key == K_d: self.RIGHT = True
-                if e.type == KEYDOWN and e.key == K_e: self.RUNNING = True
+                if e.type == KEYDOWN and e.key == K_LSHIFT: self.RUNNING = True
                 
                 
                 if e.type == MOUSEBUTTONDOWN and e.button == 1: self.CLICK = True
@@ -141,8 +142,10 @@ class playState:
                 if e.type == KEYUP and e.key == K_s: self.DOWN = False
                 if e.type == KEYUP and e.key == K_a: self.LEFT = False
                 if e.type == KEYUP and e.key == K_d: self.RIGHT = False
-                if e.type == KEYUP and e.key == K_e: self.RUNNING = False
+                if e.type == KEYUP and e.key == K_LSHIFT: self.RUNNING = False
                 if e.type == MOUSEBUTTONUP and e.button == 1: self.CLICK = False
+                    
+            pygame.display.set_caption('FPS: {0:.2f}'.format(clock.get_fps())) 
                     
             self.execute()
                 

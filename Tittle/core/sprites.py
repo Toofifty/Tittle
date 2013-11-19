@@ -19,7 +19,6 @@ class gameSprite(pygame.sprite.Sprite):
         self.rect = pygame.Rect(0, 0, 0, 0)
         self.rect.center = pixel_position
         self.speed = 0
-        self.flip = False
         
     """
     
@@ -63,7 +62,7 @@ class gameSprite(pygame.sprite.Sprite):
     """
     Set a animation and strip for a sprite
     """
-    def setAnim(self, ss, pos, size_mult = 1, loop = True, frames = 8, flip = False, fps_mult = 1):
+    def setAnim(self, ss, pos, size_mult = 1, loop = True, frames = 8, fps_mult = 1):
         try:
             self.size_mult = size_mult
             self.pos = pos
@@ -71,7 +70,6 @@ class gameSprite(pygame.sprite.Sprite):
             self.strips.iter()
             self.image = self.strips
             self.image = pygame.transform.scale(self.strips.next(), (size_mult * pos[2], size_mult * pos[3]))
-            self.flip = flip
             _, _, self.rect[2], self.rect[3] = pygame.Rect(self.image.get_rect())
             self.isAnim = True
         except:
