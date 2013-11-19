@@ -12,6 +12,26 @@ Lore: Undetermined
 - Quests/npcs
 - Skillpoints from killing enemies
 
+- NAME/STORY CHANGE
+	- Robots, very steampunky
+	- Change weapons to steampunk counterparts
+	- Darker colours
+	
+	- Meaningful 'skill' upgrades
+		- Strength > Better movement pistons
+		- Defence > increase (his) metal strength
+		- Mana > fuel
+		- Agility > tightly configured + oiled cogs
+		- Accuracy > steady cogs
+	
+	- Co - op partner
+		-
+	
+	- Steampunk settings, platforms (moving platforms, etc)
+	- Removal of magic (maybe, could be electricity)
+	- Broken bot enemies
+	
+
 A ~ in later text means possible ideas
 
 ====================== IDEAS WE'RE NOT DOING ========================

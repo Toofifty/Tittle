@@ -1,11 +1,6 @@
 #! /usr/bin/env python
 
-import os
-import pygame
-import parser
-import sprites
-import base
-
+import os, pygame, parser, sprites, base, render
 from pygame.locals import *
 from player import Tittle
 from base import *
@@ -20,9 +15,10 @@ VIEW_WIDTH = 1280
 VIEW_HEIGHT = 720
 DIMENSIONS = (VIEW_WIDTH, VIEW_HEIGHT)
 
-screen = pygame.display.set_mode(DIMENSIONS)
+screen = render.init(DIMENSIONS)
 pygame.display.set_icon(pygame.image.load('ico.png').convert_alpha())
 pygame.display.set_caption("Tittle's Adventures")
+screen.fill(CYAN)
 
 
 player = None
@@ -100,6 +96,7 @@ class playState:
     """
     def drawTiles(self, tiles):
         for t in tiles:
+            render.dirty(t.rect)
             screen.blit(t.image, t.rect)
             
     """
@@ -107,13 +104,17 @@ class playState:
     and drawing new player information
     """
     def execute(self):
-        screen.fill(CYAN)
+        
         player.update(self.UP, self.DOWN, self.LEFT, self.RIGHT, self.RUNNING, TILES)
         mouse.update(pygame.mouse.get_pos(), self.CLICK)
+        
         self.drawTiles(tiles)
         screen.blit(player.image, player.rect)
+        render.dirty(player.rect)
         screen.blit(mouse.image, mouse.rect)
-        pygame.display.update()
+        render.dirty(mouse.rect)
+        
+        render.update()
         
     """
     Handles the input from all sources, and translates to movements or events
@@ -134,6 +135,7 @@ class playState:
                 if e.type == KEYDOWN and e.key == K_a: self.LEFT = True
                 if e.type == KEYDOWN and e.key == K_d: self.RIGHT = True
                 if e.type == KEYDOWN and e.key == K_LSHIFT: self.RUNNING = True
+                if e.type == KEYDOWN and e.key == K_F11: render.toggleFullscreen()
                 
                 
                 if e.type == MOUSEBUTTONDOWN and e.button == 1: self.CLICK = True
