@@ -6,7 +6,7 @@ Base file, for simple actions such as loading images
 and drawing text, shapes, etc.
 """
 
-import os, pygame
+import os, pygame, sys
 
 from pygame.locals import *
 

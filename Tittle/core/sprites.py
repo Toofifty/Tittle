@@ -73,8 +73,8 @@ class gameSprite(pygame.sprite.Sprite):
             _, _, self.rect[2], self.rect[3] = pygame.Rect(self.image.get_rect())
             self.isAnim = True
         except:
-            self.isAnim = False
-            self.setTexture(ss, pos, size_mult)
+            print 'Failure. ' + ss + ': ' + str(pos) + ' is not an animation - ', sys.exc_info()[0]
+            raise
             
     """
     Loads a sprite's image from it's own file

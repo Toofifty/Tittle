@@ -104,35 +104,27 @@ class Player(gameSprite):
     def performAction(self):
         pass
     """
-    
+    Logic testing for if animation is already started, and sets new anims
     """
     def startAnim(self, anim):
         if not self.currentAnim == anim:
             self.currentAnim = anim
-            loop = True
-            flip = False
-            fps = 1
-            if anim == 'jump':
-                start, frames, loop = (0, 64), 16, False
-            elif anim == 'jumpl':
-                start, frames, loop, flip = (0, 64), 16, False, True
-            elif anim == 'doublejump':
-                start, frames, loop = (0, 96), 8, False
-            elif anim == 'doublejumpl':
-                start, frames, loop, flip = (0, 96), 8, False, True  # temp? 
-            elif anim == 'left':
-                start, frames, flip = (0, 32), 8, True # temp?
-            elif anim == 'right':
-                start, frames = (0, 32), 8
-            elif anim == 'runningright':
-                start, frames = (0, 0), 8 # temp
-            elif anim == 'runningleft':
-                start, frames, flip = (0, 0), 8, True # temp
-            elif anim == 'fall':
-                start, frames, flip = (0, 0), 8, True # temp                
-            else: #idle
-                start, frames, fps = (0, 0), 16, 1
-            self.setAnim('player/'+ anim +'.png', (start[0], start[1], 32, 32), 1, loop, frames, flip, fps)
+            loop = True # loop is true unless set false
+            if anim == 'jump': frames, loop = 8, False
+            elif anim == 'jumpl': frames, loop = 8, False
+            elif anim == 'doublejump': frames, loop = 8, False
+            elif anim == 'doublejumpl': frames, loop = 8, False
+            elif anim == 'left': frames = 8
+            elif anim == 'right': frames = 8
+            elif anim == 'runningright': frames = 8
+            elif anim == 'runningleft': frames = 8
+            elif anim == 'fall': frames = 8               
+            elif anim == 'idle': frames = 16
+            else:
+                print anim + ' anim not found for player - ', sys.exc_info()[0]
+                raise
+            
+            self.setAnim('player/'+ anim +'.png', (0, 0, 64, 64), 1, loop, frames, 1)
             print anim
     """
     Method to update the player's position and check collisions
@@ -168,7 +160,7 @@ class Player(gameSprite):
             self.xvel = -WALK_SPEED * SPRINT_MULT
             self.startAnim('runningleft')
             
-        if RUNNING and RIGHT and not RIGHT:
+        if RUNNING and RIGHT and not LEFT:
             self.xvel = WALK_SPEED * SPRINT_MULT
             self.startAnim('runningright')
             
