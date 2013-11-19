@@ -20,9 +20,9 @@ YELLOW = (255, 255, 0)
 MAGENTA = (255, 0, 255)
 CYAN = (0, 255, 255)
 
-SPRITES_FOLDER = 'sprites/'
-MAPS_FOLDER = 'maps/'
-ITEMS_FOLDER = 'items/'
+ASSETS_FOLDER = 'assets/'
+SPRITES_FOLDER = 'assets/sprites/'
+MAPS_FOLDER = 'assets/maps/'
 
 FPS = 30
 TILE_SIZE = 32
