@@ -15,4 +15,4 @@ class tile(gameSprite):
         gameSprite.setTexture(self, 'tile/static.png', (0, 0, 32, 32), 1)
         
     def update(self):
-        pass
+        self.dirty = 1

@@ -7,13 +7,13 @@ from base import *
 """
 Basic class for most sprites in the game
 """
-class gameSprite(pygame.sprite.Sprite):
+class gameSprite(pygame.sprite.DirtySprite):
     
     """
     Initialise the sprite, set its position (in terms of pixels)
     """
     def __init__(self, pixel_position = (0, 0)):
-        pygame.sprite.Sprite.__init__(self)
+        pygame.sprite.DirtySprite.__init__(self)
         self.x = pixel_position[0]
         self.y = pixel_position[1]
         self.rect = pygame.Rect(0, 0, 0, 0)

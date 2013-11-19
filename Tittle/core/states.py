@@ -33,6 +33,7 @@ def startGame(cont = False):
     global player
     global tiles
     global mouse
+    global allsprites
     
     TILES = []
     player = Tittle()
@@ -77,6 +78,8 @@ def startGame(cont = False):
         y += 32
         x = 0
         
+    allsprites = pygame.sprite.LayeredDirty((player, mouse))
+        
     # debug to check if we were running
     # this more than once
     print 'New game started!'
@@ -99,8 +102,8 @@ class playState:
     """
     def drawTiles(self, tiles):
         for t in tiles:
-            render.dirty(t.rect)
-            screen.blit(t.image, t.rect)
+            #screen.blit(t.image, t.rect)
+            allsprites.add(t)
             
     """
     Routine operations happening each tick, from filling the screen to updating
@@ -112,12 +115,16 @@ class playState:
         mouse.update(pygame.mouse.get_pos(), self.CLICK)
         
         self.drawTiles(tiles)
-        screen.blit(player.image, player.rect)
-        render.dirty(player.rect)
-        screen.blit(mouse.image, mouse.rect)
-        render.dirty(mouse.rect)
         
-        render.update()
+        #screen.blit(player.image, player.rect)
+        #render.dirty(player.rect)
+        #screen.blit(mouse.image, mouse.rect)
+        #render.dirty(mouse.rect)
+        screen.fill(CYAN)
+        rects = allsprites.draw(screen)
+        pygame.display.update(rects)
+        
+        #render.update()
         
     """
     Handles the input from all sources, and translates to movements or events

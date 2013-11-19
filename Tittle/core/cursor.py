@@ -21,7 +21,9 @@ class cursor(gameSprite):
         gameSprite.__init__(self, position)
         #self.setSingle('gui/cur_normal.png', SCALE)
         # no longer needs it's own file
-        self.setTexture('other/gui.png', (0, 0, 32, 32))
+        #self.setTexture('other/gui.png', (0, 0, 32, 32))
+        self.image = self.src_image = loadImage('assets/sprites/other/gui_test.png')
+        _, _, self.rect[2], self.rect[3] = pygame.Rect(self.image.get_rect())
         self.rect.center = position
         pygame.mouse.set_visible(False)
         self.clicked = False
@@ -46,6 +48,7 @@ class cursor(gameSprite):
             self.clicked = False
             self.has_transitioned = False
         self.rect.center = position
+        self.dirty = 1
     
     """
     

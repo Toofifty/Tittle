@@ -32,11 +32,10 @@ Loads simple images and converts with colourKey intact
 """
 def loadImage(imagePath, colourKey = None):
     try:
-        image = pygame.image.load(imagePath)
+        image = pygame.image.load(imagePath).convert()
     except pygame.error, message:
         print "Cannot load image: ", os.path.abspath(imagePath)
         raise SystemExit, message
-    image = image.convert()
     if colourKey is not None:
         image.set_colorkey(colourKey, RLEACCEL)
     return image
@@ -51,7 +50,7 @@ class spriteSheet(object):
     """
     def __init__(self, filename):
         try:
-            self.sheet = pygame.image.load(filename)
+            self.sheet = pygame.image.load(filename).convert()
         except pygame.error, message:
             print 'Unable to load spritesheet image:', filename
             raise SystemExit, message

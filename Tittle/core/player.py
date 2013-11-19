@@ -194,6 +194,7 @@ class Player(gameSprite):
         #self.rotate(10)
         #print RUNNING
         #print self.xvel
+        self.dirty = 1
     
     """
     Places the player at a certain position after
