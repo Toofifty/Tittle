@@ -83,6 +83,10 @@ def startGame(cont = False):
     # this more than once
     print 'New game started!'
 
+"""
+Handles input, blitting frames and fps
+Future: will point to pause menu, home menu, etc
+"""
 class playState:
     
     """
@@ -151,22 +155,4 @@ class playState:
             pygame.display.set_caption('FPS: {0:.2f}'.format(clock.get_fps())) 
                     
             self.execute()
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-        
+            

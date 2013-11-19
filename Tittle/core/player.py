@@ -226,19 +226,3 @@ class Tittle(Player):
     def __init__(self):
         Player.__init__(self, (50, 50))
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        

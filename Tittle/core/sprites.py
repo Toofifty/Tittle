@@ -96,4 +96,3 @@ class gameSprite(pygame.sprite.Sprite):
         self.image = rot_center(self.src_image, angle)
         return angle
         #self.image = rot_center(self.image, speed)
-        

@@ -89,4 +89,3 @@ class itemData(object):
                     attribs.append(attrib.text)
                     
         return attribs
-        
