@@ -18,8 +18,6 @@ DIMENSIONS = (VIEW_WIDTH, VIEW_HEIGHT)
 screen = render.init(DIMENSIONS)
 pygame.display.set_icon(pygame.image.load('ico.png').convert_alpha())
 pygame.display.set_caption("Tittle's Adventures")
-screen.fill(CYAN)
-pygame.display.update()
 
 
 player = None
@@ -123,6 +121,7 @@ class playState:
         
     """
     Handles the input from all sources, and translates to movements or events
+    May be moved to own module
     """            
     def handleInput(self):
         playtime = 0
