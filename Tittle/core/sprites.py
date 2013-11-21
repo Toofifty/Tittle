@@ -103,5 +103,5 @@ class gameSprite(pygame.sprite.DirtySprite):
     
     """
     def imageload(self, image):
-        self.image = pygame.image.load(imagePath).convert_alpha()
+        self.image = base.imageload(image)
         

@@ -6,7 +6,7 @@ Base file, for simple actions such as loading images
 and drawing text, shapes, etc.
 """
 
-import os, pygame, sys
+import os, pygame, sys, textlogic
 
 from pygame.locals import *
 
@@ -134,3 +134,36 @@ class animload(object):
             self.i += 1
             self.f = self.frames
         return image
+
+class pixeltext(object):
+    """
+    Print pixel text (other/font.png) in-game
+    """
+    def __init__(self):
+        self.font = sheetload('font.png')
+        
+    def drawtext(self, text, pos):
+        rects = textlogic.convertFont(text)
+        print rects
+        images = self.font.getimages(rects)
+        
+        width = 0
+        
+        for i in images:
+            width += i.rect.width
+            
+        text_box = Rect(pos, (7, width))
+        
+"""
+
+"""
+def imageload(self, image):
+    return pygame.image.load(SPRITES_FOLDER + image).convert_alpha()
+
+
+def createRectangle(dimensions, colour = None):
+    rectangle = pygame.Surface(dimensions).convert()
+    if colour is not None:
+        rectangle.fill(colour)
+    return rectangle
+        

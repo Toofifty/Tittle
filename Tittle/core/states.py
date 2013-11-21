@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import os, pygame, parser, sprites, base, render
+import os, pygame, parser, sprites, base, render, fonty
 from pygame.locals import *
 from player import Tittle
 from base import *
@@ -21,6 +21,8 @@ pygame.display.set_caption("Tittle's Adventures")
 
 
 player = None
+
+gFont = fonty.gamefont()
 
 
 """
@@ -79,6 +81,8 @@ def startGame(cont = False):
         x = 0
         
     allsprites = pygame.sprite.LayeredDirty((player, mouse))
+    
+    #base.pixeltext().drawtext('hello', (100, 100))
         
     # debug to check if we were running
     # this more than once
@@ -114,13 +118,22 @@ class playState:
         player.update(self.UP, self.DOWN, self.LEFT, self.RIGHT, self.RUNNING, TILES)
         mouse.update(pygame.mouse.get_pos(), self.CLICK)
         
+        fun = gFont.text("The quick brown fox: jumps over the lazy dog.")
+        fun1 = gFont.text("THE QUICK BROWN FOX, JUMPS OVER THE LAZY DOG!") 
+        fun2 = gFont.text('- ; _ { | } [ ] ( ) * & ^ % $ @ > < ? " \' \\ /')        
+        
         self.drawTiles(tiles)
         screen.fill(CYAN)
+        screen.blit(fun, (500, 50))
+        screen.blit(fun1, (500, 80))
+        screen.blit(fun2, (500, 110))
         rects = allsprites.draw(screen)
+        #print rects[0]
         
-        drawText(pygame.image.load('test.png'), 'test', 20, BLACK, True)
+        
         
         pygame.display.update(rects)
+        #pygame.display.flip()
         
     """
     Handles the input from all sources, and translates to movements or events
