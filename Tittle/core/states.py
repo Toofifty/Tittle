@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import os, pygame, parser, sprites, base, render, fonty
+import os, pygame, parser, sprites, base, render, font
 from pygame.locals import *
 from player import Tittle
 from base import *
@@ -22,7 +22,7 @@ pygame.display.set_caption("Tittle's Adventures")
 
 player = None
 
-gFont = fonty.gamefont()
+gfont = font.gamefont()
 
 
 """
@@ -36,10 +36,12 @@ def startGame(cont = False):
     global tiles
     global mouse
     global allsprites
+    global mtext
     
     TILES = []
     player = Tittle()
     mouse = cursor((VIEW_WIDTH/2, VIEW_HEIGHT/2))
+    mtext = cursortext('Examine object: nothing',(VIEW_WIDTH/2, VIEW_HEIGHT/2))
     tiles = pygame.sprite.Group()
     
     # dummy test level
@@ -80,7 +82,7 @@ def startGame(cont = False):
         y += 32
         x = 0
         
-    allsprites = pygame.sprite.LayeredDirty((player, mouse))
+    allsprites = pygame.sprite.LayeredDirty((player, mouse, mtext))
     
     #base.pixeltext().drawtext('hello', (100, 100))
         
@@ -114,23 +116,24 @@ class playState:
     and drawing new player information
     """
     def execute(self):
+        screen.fill(CYAN)
         
         player.update(self.UP, self.DOWN, self.LEFT, self.RIGHT, self.RUNNING, TILES)
         mouse.update(pygame.mouse.get_pos(), self.CLICK)
+        mtext.update(pygame.mouse.get_pos())
         
-        fun = gFont.text("The quick brown fox: jumps over the lazy dog.")
-        fun1 = gFont.text("THE QUICK BROWN FOX, JUMPS OVER THE LAZY DOG!") 
-        fun2 = gFont.text('- ; _ { | } [ ] ( ) * & ^ % $ @ > < ? " \' \\ /')        
+        fun = gfont.text("The quick brown fox: jumps over the lazy dog.")
+        fun1 = gfont.text("THE QUICK BROWN FOX, JUMPS OVER THE LAZY DOG!") 
+        fun2 = gfont.text('- ; _ { | } [ ] ( ) * & ^ % $ @ > < ? " \' \\ /')        
         
         self.drawTiles(tiles)
-        screen.fill(CYAN)
         screen.blit(fun, (500, 50))
         screen.blit(fun1, (500, 80))
         screen.blit(fun2, (500, 110))
         rects = allsprites.draw(screen)
         #print rects[0]
         
-        
+        print rects
         
         pygame.display.update(rects)
         #pygame.display.flip()

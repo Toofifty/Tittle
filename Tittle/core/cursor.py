@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-import pygame
-import base
+import pygame, base, font
 
 from sprites import *
 from base import *
@@ -21,6 +20,7 @@ class cursor(gameSprite):
         gameSprite.__init__(self, position)        
         self.sheetimageload('other/gui.png', (0, 0, 32, 32))
         self.rect.center = position
+        self.pos = position
         self.clicked = False
         self.action = 'punch'
         self.angle = 0
@@ -56,3 +56,18 @@ class cursor(gameSprite):
     def transitionClick(self, position):
         self.sheetimageload('other/gui.png', (32, 0, 32, 32))
         self.has_transitioned = True
+
+class cursortext(gameSprite):
+    
+    def __init__(self, text, position):
+        gameSprite.__init__(self, position)
+        self.image = font.gamefont().text(text)
+        print self.image
+        self.rect.center = position
+        
+    def update(self, position):
+        self.rect.center = (position[0]+20, position[1]-20)
+        self.dirty = 1
+        
+        
+        
