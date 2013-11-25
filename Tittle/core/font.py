@@ -21,8 +21,9 @@ class font:
         
     def text(self, text):
         schars = [c for c in text if c in self.chars]
-        textimage = pygame.Surface(((len(schars)+2) * self.charw, 2*self.charh)).convert_alpha()
-        textimage.fill((100, 255, 255))
+        textimage = pygame.Surface(((len(schars)+2) * self.charw, 2*self.charh)).convert()
+        textimage.fill((0, 0, 255))
+        textimage.set_colorkey((0, 0, 255), pygame.RLEACCEL)
         for i, char in enumerate(schars):
             textimage.blit(self.chars[char], ((i+1) * self.charw, self.charh/2))
         return textimage

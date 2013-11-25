@@ -125,7 +125,7 @@ class animload(object):
     def next(self):
         if self.i >= len(self.images):
             if not self.loop:
-                raise StopIteration
+                self.i -= 1
             else:
                 self.i = 0
         image = self.images[self.i]
@@ -157,7 +157,7 @@ class pixeltext(object):
 """
 
 """
-def imageload(self, image):
+def imageload(image):
     return pygame.image.load(SPRITES_FOLDER + image).convert_alpha()
 
 

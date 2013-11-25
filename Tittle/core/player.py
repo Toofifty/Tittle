@@ -6,11 +6,11 @@ import base
 from sprites import *
 from base import *
 
-WALK_SPEED = 5
+WALK_SPEED = 10
 SPRINT_MULT = 1.5
 
-JUMP_HEIGHT = 15
-DOUBLE_JUMP_MULT = 1.5
+JUMP_HEIGHT = 25
+DOUBLE_JUMP_MULT = 3
 
 """
 Class to create, spawn and control the player
@@ -27,7 +27,7 @@ class Player(gameSprite):
         self.yvel = 0
         self.xvel = 0
         self.onGround = False
-        self.sheetanimload('player/idle.png', (0, 0, 64, 64), 16, True)
+        self.sheetanimload('player/idle.png', (0, 0, 64, 64), 1, True)
         self.rect[0] = position[0]
         self.rect[1] = position[1]
         print self.rect
@@ -86,8 +86,8 @@ class Player(gameSprite):
         elif not self.hasDoubleJumped and self.ready_to_jump:
             if self.yvel > 0:
                 self.yvel = DOUBLE_JUMP_MULT*vel * -self.yvel / 2
-                if self.yvel < -20:
-                    self.yvel = -20
+                if self.yvel < -30:
+                    self.yvel = -30
             elif self.yvel < 0:
                 self.yvel = -vel
             # set anim to jump anim
@@ -115,16 +115,17 @@ class Player(gameSprite):
             elif anim == 'doublejump': frames, loop = 8, False
             elif anim == 'doublejumpl': frames, loop = 8, False
             elif anim == 'left': frames = 8
-            elif anim == 'right': frames = 8
+            elif anim == 'right': frames = 15
             elif anim == 'runningright': frames = 8
             elif anim == 'runningleft': frames = 8
             elif anim == 'fall': frames = 8               
-            elif anim == 'idle': frames = 16
+            elif anim == 'idle': frames = 8
             else:
                 print anim + ' anim not found for player - ', sys.exc_info()[0]
                 raise
-            
-            self.sheetanimload('player/'+ anim +'.png', (0, 0, 64, 64), frames, loop)
+            if frames == 8:
+                frames = 1
+            self.sheetanimload('player/'+ anim +'.png', (0, 0, 96, 128), frames, loop)
             print anim
     """
     Method to update the player's position and check collisions
@@ -179,7 +180,7 @@ class Player(gameSprite):
                 self.startAnim('idle')
         
         if not self.onGround:
-            self.yvel += 1
+            self.yvel += 2
             if self.yvel > 100: self.yvel = 100
             
         if not(LEFT or RIGHT):
@@ -225,5 +226,5 @@ class Tittle(Player):
     Initialises Tittle as a player at the given position
     """
     def __init__(self):
-        Player.__init__(self, (50, 50))
+        Player.__init__(self, (500, 300))
         

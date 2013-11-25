@@ -6,6 +6,7 @@ from player import Tittle
 from base import *
 from tile import *
 from cursor import *
+from camera import *
 
 """
 Set up screen and some basic variables
@@ -18,6 +19,7 @@ DIMENSIONS = (VIEW_WIDTH, VIEW_HEIGHT)
 screen = render.init(DIMENSIONS)
 pygame.display.set_icon(pygame.image.load('ico.png').convert_alpha())
 pygame.display.set_caption("Tittle's Adventures")
+background = imageload('background/sky_city.png')
 
 
 player = None
@@ -37,6 +39,7 @@ def startGame(cont = False):
     global mouse
     global allsprites
     global mtext
+    global camera
     
     TILES = []
     player = Tittle()
@@ -46,29 +49,38 @@ def startGame(cont = False):
     
     # dummy test level
     level = [
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "                                                      ",
-        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                              PPP                                      ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                       PPP                             ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "              PPPPPPPPPPPPPPPPP                                        ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                    PPPPPPPPPPPP                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "                                                                       ",
+        "P                                                                     P",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
     
     # build the level
     x = y = 0
@@ -81,6 +93,10 @@ def startGame(cont = False):
             x += 32
         y += 32
         x = 0
+        
+    lwidth = len(level[0])*32
+    lheight = len(level)*32
+    camera = camera(complex_camera, lwidth, lheight)
         
     allsprites = pygame.sprite.LayeredDirty((player, mouse, mtext))
     
@@ -108,35 +124,30 @@ class playState:
     """
     def drawTiles(self, tiles):
         for t in tiles:
-            #screen.blit(t.image, t.rect)
-            allsprites.add(t)
+            screen.blit(t.image, camera.apply(t))
             
     """
     Routine operations happening each tick, from filling the screen to updating
     and drawing new player information
     """
     def execute(self):
-        screen.fill(CYAN)
+        screen.blit(background, (0, 0))
+        
+        camera.update(player)
         
         player.update(self.UP, self.DOWN, self.LEFT, self.RIGHT, self.RUNNING, TILES)
         mouse.update(pygame.mouse.get_pos(), self.CLICK)
-        mtext.update(pygame.mouse.get_pos())
-        
-        fun = gfont.text("The quick brown fox: jumps over the lazy dog.")
-        fun1 = gfont.text("THE QUICK BROWN FOX, JUMPS OVER THE LAZY DOG!") 
-        fun2 = gfont.text('- ; _ { | } [ ] ( ) * & ^ % $ @ > < ? " \' \\ /')        
+        mtext.update(pygame.mouse.get_pos())     
         
         self.drawTiles(tiles)
-        screen.blit(fun, (500, 50))
-        screen.blit(fun1, (500, 80))
-        screen.blit(fun2, (500, 110))
-        rects = allsprites.draw(screen)
-        #print rects[0]
+        #rects = allsprites.draw(screen)
         
-        print rects
+        screen.blit(player.image, camera.apply(player))
+        screen.blit(mouse.image, mouse.rect)
+        screen.blit(mtext.image, mtext.rect)
         
-        pygame.display.update(rects)
-        #pygame.display.flip()
+        pygame.display.update()
+        print camera.state
         
     """
     Handles the input from all sources, and translates to movements or events
@@ -153,20 +164,20 @@ class playState:
                 if e.type == KEYDOWN and e.key == K_ESCAPE: raise SystemExit, "ESCAPE"
                 if e.type == KEYDOWN and e.key == K_RETURN: player = Tittle()
                 
-                if e.type == KEYDOWN and e.key == K_SPACE: self.UP = True
-                if e.type == KEYDOWN and e.key == K_s: self.DOWN = True
-                if e.type == KEYDOWN and e.key == K_a: self.LEFT = True
-                if e.type == KEYDOWN and e.key == K_d: self.RIGHT = True
+                if e.type == KEYDOWN and (e.key == K_SPACE or e.key == K_w or e.key == K_UP): self.UP = True
+                if e.type == KEYDOWN and (e.key == K_s or e.key == K_DOWN): self.DOWN = True
+                if e.type == KEYDOWN and (e.key == K_a or e.key == K_LEFT): self.LEFT = True
+                if e.type == KEYDOWN and (e.key == K_d or e.key == K_RIGHT): self.RIGHT = True
                 if e.type == KEYDOWN and e.key == K_LSHIFT: self.RUNNING = True
                 if e.type == KEYDOWN and e.key == K_F11: render.toggleFullscreen()
                 
                 
                 if e.type == MOUSEBUTTONDOWN and e.button == 1: self.CLICK = True
                 
-                if e.type == KEYUP and e.key == K_SPACE: self.UP = False
-                if e.type == KEYUP and e.key == K_s: self.DOWN = False
-                if e.type == KEYUP and e.key == K_a: self.LEFT = False
-                if e.type == KEYUP and e.key == K_d: self.RIGHT = False
+                if e.type == KEYUP and (e.key == K_SPACE or e.key == K_w or e.key == K_UP): self.UP = False
+                if e.type == KEYUP and (e.key == K_s or e.key == K_DOWN): self.DOWN = False
+                if e.type == KEYUP and (e.key == K_a or e.key == K_LEFT): self.LEFT = False
+                if e.type == KEYUP and (e.key == K_d or e.key == K_RIGHT): self.RIGHT = False
                 if e.type == KEYUP and e.key == K_LSHIFT: self.RUNNING = False
                 if e.type == MOUSEBUTTONUP and e.button == 1: self.CLICK = False
                     
