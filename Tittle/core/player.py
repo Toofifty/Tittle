@@ -216,6 +216,7 @@ class Player(gameSprite):
                     self.yvel = 0
                 if yvel < 0:
                     self.rect.top = p.rect.bottom
+                    self.yvel = 0
     
 """
 Class for creating and initialising a player, possibility
