@@ -1,0 +1,2 @@
+type: Normal
+def P: static(0,1)

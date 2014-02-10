@@ -34,13 +34,17 @@ def drawText(source, text, size, colour, shadow = False, copy = False):
     if copy:
         rect = pygame.Surface(source.get_size()).convert()
         rect.blit(source, (0, 0))
+        
     else:
         rect = source
+        
     font = pygame.font.Font(None, size)
+    
     if shadow:
         fontText = font.render(text, 1, BLACK)
         position = fontText.get_rect(centerx = rect.get_width() / 2 + 2, centery = rect.get_height() / 2 + 2)
         rect.blit(fontText, position)
+        
     fontText = font.render(text, 1, colour)
     position = fontText.get_rect(centerx = rect.get_width() / 2, centery = rect.get_height() / 2)
     rect.blit(fontText, position)
@@ -63,9 +67,9 @@ as a value, and line no. as index
 """
 def read(source):
     lines = []
-    with open(source, 'rb') as source:
+    with open(source, 'r') as source:
         for line in source:
-            l = line.split('\n')
+            l = line.replace('\n','')
             lines.append(l)
     return lines
 

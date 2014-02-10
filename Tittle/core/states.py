@@ -1,19 +1,32 @@
 #! /usr/bin/env python
 
+# libs
 import os, pygame, parser, sprites, base, render, font
+
+# mods
+import keyhandler
+import settings
 from pygame.locals import *
 from player import Tittle
+
+# possibly bad practice
 from base import *
 from tile import *
 from cursor import *
 from camera import *
+from maploader import map
+
 
 """
 Set up screen and some basic variables
+-> 'Read only' globals
+These all get processed when 'states' is first called
 """
+settings = settings.load()
+
 ORIGIN = (0, 0)
-VIEW_WIDTH = 1280
-VIEW_HEIGHT = 720
+VIEW_WIDTH = settings['screen-width']
+VIEW_HEIGHT = settings['screen-height']
 DIMENSIONS = (VIEW_WIDTH, VIEW_HEIGHT)
 
 screen = render.init(DIMENSIONS)
@@ -23,7 +36,6 @@ background = imageload('background/sky_city.png')
 
 
 player = None
-
 gfont = font.gamefont()
 
 
@@ -32,163 +44,104 @@ Starts the game, loads the player and first level (temporary, to
 be placed into its own handler)
 """
 def startGame(cont = False):
-    # initiate global stuff
-    global TILES
-    global player
-    global tiles
-    global mouse
-    global allsprites
-    global mtext
-    global camera
+    # startgame should init a new 'playstate' object
     
-    TILES = []
+    # initiate global stuff
+    global mouse
+    global mtext
+    mtext = ''
+    
     player = Tittle()
     mouse = cursor((VIEW_WIDTH/2, VIEW_HEIGHT/2))
-    mtext = cursortext('Test text',(VIEW_WIDTH/2, VIEW_HEIGHT/2))
-    tiles = pygame.sprite.Group()
+    #mtext = cursortext('Test text',(VIEW_WIDTH/2, VIEW_HEIGHT/2))
     
-    # dummy test level
-    level = [
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                              PPP                                                                                                                    ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                     PPP                             ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "              PPPPPPPPPPPPPPPPP                                                                                                                      ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                  PPPPPPPPPPPP                       ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "                                                                                                                                                     ",
-        "P                                                                                                                                                   P",
-        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
+    global TILES
+    global tiles
+        
+    current_map = map()
+    current_map.load('1')
+    TILES, tiles = current_map.build()
     
-    # build the level
-    x = y = 0
-    for row in level:
-        for col in row:
-            if col == "P":
-                p = tile(x, y)
-                TILES.append(p)
-                tiles.add(p)
-            x += 32
-        y += 32
-        x = 0
-        
-    lwidth = len(level[0])*32
-    lheight = len(level)*32
-    camera = camera(complex_camera, lwidth, lheight)
-        
-    allsprites = pygame.sprite.LayeredDirty((player, mouse, mtext))
-    
-    #base.pixeltext().drawtext('hello', (100, 100))
-        
-    # debug to check if we were running
-    # this more than once
-    print 'New game started!'
+    ps = playState(player, camera(
+                                  complex_camera,
+                                  current_map.width(),
+                                  current_map.height())
+                   )
+    ps.run()
 
 """
 Handles input, blitting frames and fps
 Future: will point to pause menu, home menu, etc
 """
-class playState:
+class playState(object):
     
     """
     Define all of the object's variables in the __init__
     """
-    def __init__(self):
+    def __init__(self, player, camera):
         self.UP = self.DOWN = self.LEFT = self.RIGHT = self.RUNNING = self.CLICK = False
-        print 'PlayState initialised!'
+        # 'bind' classes to the playstate class, for later use,
+        # instead of leaving them floating in the 'global' realm
+        self.player = player
+        self.camera = camera
 
     """
     Draw the tiles that are in the array 'tiles'
     """
     def drawTiles(self, tiles):
         for t in tiles:
-            screen.blit(t.image, camera.apply(t))
+            screen.blit(t.image, self.camera.apply(t))
             
     """
     Routine operations happening each tick, from filling the screen to updating
     and drawing new player information
     """
-    def execute(self):
+    def runframe(self):
         screen.blit(background, (0, 0))
         
-        camera.update(player)
+        self.camera.update(self.player)
         
-        player.update(self.UP, self.DOWN, self.LEFT, self.RIGHT, self.RUNNING, TILES)
+        self.player.update(self.UP, self.DOWN, self.LEFT, self.RIGHT, self.RUNNING, TILES)
         mouse.update(pygame.mouse.get_pos(), self.CLICK)
-        mtext.update(pygame.mouse.get_pos())     
+        if mtext:
+            mtext.update(pygame.mouse.get_pos())     
         
         self.drawTiles(tiles)
-        #rects = allsprites.draw(screen)
         
-        screen.blit(player.image, camera.apply(player))
+        screen.blit(self.player.image, self.camera.apply(self.player))
         screen.blit(mouse.image, mouse.rect)
-        screen.blit(mtext.image, mtext.rect)
+        if mtext:
+            screen.blit(mtext.image, mtext.rect)
         
         pygame.display.update()
-        print camera.state
         
     """
     Handles the input from all sources, and translates to movements or events
     May be moved to own module
     """            
-    def handleInput(self):
+    def run(self):
         playtime = 0
         clock = pygame.time.Clock()
+        
         while True:
             ms = clock.tick(FPS) 
             playtime += ms / 1000.0
-            for e in pygame.event.get():
-                if e.type == KEYDOWN and e.type == QUIT: raise SystemExit, "QUIT"
-                if e.type == KEYDOWN and e.key == K_ESCAPE: raise SystemExit, "ESCAPE"
-                if e.type == KEYDOWN and e.key == K_RETURN: player = Tittle()
+            
+            action = keyhandler.get_action(self, pygame.event.get())
+            if action == 'newplayer':
+                del self.player
+                self.player = Tittle()
                 
-                if e.type == KEYDOWN and (e.key == K_SPACE or e.key == K_w or e.key == K_UP): self.UP = True
-                if e.type == KEYDOWN and (e.key == K_s or e.key == K_DOWN): self.DOWN = True
-                if e.type == KEYDOWN and (e.key == K_a or e.key == K_LEFT): self.LEFT = True
-                if e.type == KEYDOWN and (e.key == K_d or e.key == K_RIGHT): self.RIGHT = True
-                if e.type == KEYDOWN and e.key == K_LSHIFT: self.RUNNING = True
-                if e.type == KEYDOWN and e.key == K_F11: render.toggleFullscreen()
-                
-                
-                if e.type == MOUSEBUTTONDOWN and e.button == 1: self.CLICK = True
-                
-                if e.type == KEYUP and (e.key == K_SPACE or e.key == K_w or e.key == K_UP): self.UP = False
-                if e.type == KEYUP and (e.key == K_s or e.key == K_DOWN): self.DOWN = False
-                if e.type == KEYUP and (e.key == K_a or e.key == K_LEFT): self.LEFT = False
-                if e.type == KEYUP and (e.key == K_d or e.key == K_RIGHT): self.RIGHT = False
-                if e.type == KEYUP and e.key == K_LSHIFT: self.RUNNING = False
-                if e.type == MOUSEBUTTONUP and e.button == 1: self.CLICK = False
+            elif action == 'fullscreen':
+                render.toggleFullscreen()
                     
             pygame.display.set_caption('FPS: {0:.2f}'.format(clock.get_fps())) 
                     
-            self.execute()
-            
+            self.runframe()
+         
+"""
+Handle pause menus and such
+"""   
+class MenuState:
+    def __init__(self):
+        pass

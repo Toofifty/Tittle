@@ -10,7 +10,6 @@ WALK_SPEED = 10
 SPRINT_MULT = 1.5
 
 JUMP_HEIGHT = 25
-DOUBLE_JUMP_MULT = 3
 
 """
 Class to create, spawn and control the player
@@ -24,16 +23,18 @@ class Player(gameSprite):
     """
     def __init__(self, position = (0, 0)):
         gameSprite.__init__(self, position)
+        # yvel is a vector pointing downwards
         self.yvel = 0
+        # xvel is a vector pointing right
         self.xvel = 0
-        self.onGround = False
+        
+        self.on_ground = False
         self.sheetanimload('player/idle.png', (0, 0, 64, 64), 1, True)
         self.rect[0] = position[0]
         self.rect[1] = position[1]
-        print self.rect
         print 'Player initialised!'
         self.currentAnim = 'idle'
-        self.hasDoubleJumped = False
+        self.has_double_jumped = False
         self.ready_to_jump = True
         
     """
@@ -46,13 +47,7 @@ class Player(gameSprite):
     
     """
     def getBaseRectTop(self, base_rect_height):
-        pass
-    
-    """
-    
-    """
-    def updateViewRect(self):
-        pass       
+        pass  
     
     """
     
@@ -77,62 +72,84 @@ class Player(gameSprite):
     jump if only one jump has occured so far
     """
     def jump(self, vel, anim):
-        if self.onGround: 
+        # I'm on the ground .: I haven't jumped
+        if self.on_ground: 
             self.ready_to_jump = False
-            self.hasDoubleJumped = False
-            self.yvel -= vel
-            # set anim to jump anim
-            self.startAnim(anim)
-        elif not self.hasDoubleJumped and self.ready_to_jump:
-            if self.yvel > 0:
-                self.yvel = DOUBLE_JUMP_MULT*vel * -self.yvel / 2
-                if self.yvel < -30:
-                    self.yvel = -30
-            elif self.yvel < 0:
-                self.yvel = -vel
-            # set anim to jump anim
-            self.startAnim('double' + anim)
-            self.hasDoubleJumped = True
-            #print 'double jump!'
+            self.has_double_jumped = False
+            self.yvel = -vel
+            self.start_anim(anim)
+            
+        # I haven't double jumped yet
+        elif not self.has_double_jumped and self.ready_to_jump:
+            self.yvel = -vel
+            self.start_anim('double' + anim)
+            self.has_double_jumped = True
+            
+        # I've already double jumped
         else:
             pass # slam or something maybe? triple jump?
+    
     
     """
     Method for performing certain actions, will be put to use
     later
     """
-    def performAction(self):
+    def perform_action(self):
         pass
+    
     """
     Logic testing for if animation is already started, and sets new anims
     """
-    def startAnim(self, anim):
+    def start_anim(self, anim):
+        # Should I start a new anim or continue with mine?
         if not self.currentAnim == anim:
             self.currentAnim = anim
             loop = True # loop is true unless set false
-            if anim == 'jump': frames, loop = 8, False
-            elif anim == 'jumpl': frames, loop = 8, False
-            elif anim == 'doublejump': frames, loop = 8, False
-            elif anim == 'doublejumpl': frames, loop = 8, False
-            elif anim == 'left': frames = 8
-            elif anim == 'right': frames = 15
-            elif anim == 'runningright': frames = 8
-            elif anim == 'runningleft': frames = 8
-            elif anim == 'fall': frames = 8               
-            elif anim == 'idle': frames = 8
+            
+            if anim == 'jump':
+                frames, loop = 8, False
+                
+            elif anim == 'jumpl': 
+                frames, loop = 8, False
+                
+            elif anim == 'doublejump': 
+                frames, loop = 8, False
+                
+            elif anim == 'doublejumpl': 
+                frames, loop = 8, False
+                
+            elif anim == 'left': 
+                frames = 8
+                
+            elif anim == 'right': 
+                frames = 15
+                
+            elif anim == 'runningright': 
+                frames = 8
+                
+            elif anim == 'runningleft': 
+                frames = 8
+                
+            elif anim == 'fall': 
+                frames = 8        
+                       
+            elif anim == 'idle': 
+                frames = 8
+                
             else:
                 print anim + ' anim not found for player - ', sys.exc_info()[0]
-                raise
+            
             if frames == 8:
                 frames = 1
+                
             self.sheetanimload('player/'+ anim +'.png', (0, 0, 96, 128), frames, loop)
             print anim
+            
     """
     Method to update the player's position and check collisions
     based on the directions given
     """            
     def update(self, UP, DOWN, LEFT, RIGHT, RUNNING, PLATFORMS):
-        # print self.ready_to_jump
         
         if UP and self.ready_to_jump: 
             if LEFT:
@@ -150,36 +167,38 @@ class Player(gameSprite):
         if LEFT and not RUNNING and not RIGHT:
             self.xvel = -WALK_SPEED
             if not UP:
-                self.startAnim('left')
+                self.start_anim('left')
             
         if RIGHT and not RUNNING and not LEFT:
             self.xvel = WALK_SPEED
             if not UP:
-                self.startAnim('right')
+                self.start_anim('right')
             
         if RUNNING and LEFT and not RIGHT:
             self.xvel = -WALK_SPEED * SPRINT_MULT
-            self.startAnim('runningleft')
+            self.start_anim('runningleft')
             
         if RUNNING and RIGHT and not LEFT:
             self.xvel = WALK_SPEED * SPRINT_MULT
-            self.startAnim('runningright')
+            self.start_anim('runningright')
             
         if RIGHT and LEFT:
             self.xvel = 0
             if self.yvel > 0:
-                self.startAnim('fall')
+                self.start_anim('fall')
+                
             else:
-                self.startAnim('idle')
+                self.start_anim('idle')
         
           
         if not (UP or DOWN or LEFT or RIGHT or RUNNING):
             if self.yvel > 0:
-                self.startAnim('fall')
+                self.start_anim('fall')
+                
             else:
-                self.startAnim('idle')
+                self.start_anim('idle')
         
-        if not self.onGround:
+        if not self.on_ground:
             self.yvel += 2
             if self.yvel > 100: self.yvel = 100
             
@@ -188,13 +207,12 @@ class Player(gameSprite):
             
         self.rect.left += self.xvel
         self.collide(self.xvel, 0, PLATFORMS)
+        
         self.rect.top += self.yvel
-        self.onGround = False
-        self.collide(0, self.yvel, PLATFORMS)  
+        self.collide(0, self.yvel, PLATFORMS)
+        
+        self.on_ground = False
         self.getNextFrame()
-        #self.rotate(10)
-        #print RUNNING
-        #print self.xvel
         self.dirty = 1
     
     """
@@ -207,13 +225,16 @@ class Player(gameSprite):
                 if xvel > 0:
                     self.rect.right = p.rect.left
                     print "right collide"
+                    
                 if xvel < 0:
                     self.rect.left = p.rect.right
                     print "left collide"
+                    
                 if yvel > 0:
                     self.rect.bottom = p.rect.top
-                    self.onGround = True
+                    self.on_ground = True
                     self.yvel = 0
+                    
                 if yvel < 0:
                     self.rect.top = p.rect.bottom
                     self.yvel = 0
@@ -223,6 +244,17 @@ Class for creating and initialising a player, possibility
 of creating another of these to use as co-op player
 """
 class Tittle(Player):
+    """
+    Initialises Tittle as a player at the given position
+    """
+    def __init__(self):
+        Player.__init__(self, (500, 300))
+        
+"""
+Class for creating and initialising a player, possibility
+of creating another of these to use as co-op player
+"""
+class Tattle(Player):
     """
     Initialises Tittle as a player at the given position
     """

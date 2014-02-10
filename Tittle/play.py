@@ -21,7 +21,7 @@ def main():
     core.states.startGame()
     
     # main loop for the game   
-    core.states.playState().handleInput()
+    core.states.playState().run()
 
 """
 Calls the main() function when code is executed
