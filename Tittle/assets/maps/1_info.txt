@@ -1,2 +1,12 @@
 type: Normal
-def P: static(0,1)
+!def B: static(0,1)
+!def A: static(2,13)
+!def C: static(3,0)
+
+doesn't really read any other text here, so sd f
+s
+ag
+dafhd
+fh fsgjgfsj
+dg
+dsfhjsdfgjfgj

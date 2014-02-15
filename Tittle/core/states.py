@@ -4,17 +4,15 @@
 import os, pygame, parser, sprites, base, render, font
 
 # mods
-import keyhandler
-import settings
+import keyhandler, maploader, settings
 from pygame.locals import *
 from player import Tittle
 
-# possibly bad practice
+# shouldn't really do this
 from base import *
 from tile import *
 from cursor import *
 from camera import *
-from maploader import map
 
 
 """
@@ -58,8 +56,7 @@ def startGame(cont = False):
     global TILES
     global tiles
         
-    current_map = map()
-    current_map.load('1')
+    current_map = maploader.map('1')
     TILES, tiles = current_map.build()
     
     ps = playState(player, camera(
@@ -80,6 +77,7 @@ class playState(object):
     """
     def __init__(self, player, camera):
         self.UP = self.DOWN = self.LEFT = self.RIGHT = self.RUNNING = self.CLICK = False
+        self.camleft = self.camright = False
         # 'bind' classes to the playstate class, for later use,
         # instead of leaving them floating in the 'global' realm
         self.player = player
@@ -98,7 +96,8 @@ class playState(object):
     """
     def runframe(self):
         screen.blit(background, (0, 0))
-        
+
+        self.camera.move(self.camleft, self.camright)
         self.camera.update(self.player)
         
         self.player.update(self.UP, self.DOWN, self.LEFT, self.RIGHT, self.RUNNING, TILES)

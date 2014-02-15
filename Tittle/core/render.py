@@ -5,7 +5,7 @@ Lots of code to be replaced here, i.e all dirtysprites and such
 """
 
 import sys, pygame
-from pygame.locals import Rect, FULLSCREEN, HWSURFACE, RLEACCEL
+from pygame.locals import Rect, FULLSCREEN, HWSURFACE, RLEACCEL, RESIZABLE
 
 surface = None
 rect = Rect(0, 0, 0, 0)
@@ -21,6 +21,7 @@ def init(size, fullscreen = 0):
         flags = 0
         if fullscreen:
             flags |= FULLSCREEN
+        flags |= RESIZABLE
         screen = pygame.display.set_mode(size, flags)
         rect = screen.get_rect()
         

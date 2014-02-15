@@ -17,7 +17,6 @@ class font:
             self.chars[char] = charimages[i]
         self.charw = charimages[0].get_width()
         self.charh = charimages[0].get_height()
-        print self.charw, self.charh
         
     def text(self, text):
         schars = [c for c in text if c in self.chars]
@@ -43,4 +42,3 @@ class gamefont(font):
                 charimages.append(charimage)
                 x += 8
         font.__init__(self, charimages)
-        print charimages

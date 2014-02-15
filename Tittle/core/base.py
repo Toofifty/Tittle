@@ -148,7 +148,6 @@ class pixeltext(object):
         
     def drawtext(self, text, pos):
         rects = textlogic.convertFont(text)
-        print rects
         images = self.font.getimages(rects)
         
         width = 0

@@ -150,7 +150,7 @@ class Player(gameSprite):
     based on the directions given
     """            
     def update(self, UP, DOWN, LEFT, RIGHT, RUNNING, PLATFORMS):
-        
+
         if UP and self.ready_to_jump: 
             if LEFT:
                 self.jump(JUMP_HEIGHT, 'jumpl')
@@ -205,13 +205,14 @@ class Player(gameSprite):
         if not(LEFT or RIGHT):
             self.xvel = 0
             
+        self.on_ground = False
+        
         self.rect.left += self.xvel
         self.collide(self.xvel, 0, PLATFORMS)
         
         self.rect.top += self.yvel
         self.collide(0, self.yvel, PLATFORMS)
         
-        self.on_ground = False
         self.getNextFrame()
         self.dirty = 1
     
