@@ -32,7 +32,10 @@ def get_action(playstate, event):
             if e.key == K_RIGHT: playstate.camright = False
                 
             
-        if e.type == MOUSEBUTTONDOWN and e.button == 1: playstate.CLICK = True
+        if e.type == MOUSEBUTTONDOWN:
+            if e.button == 1: playstate.CLICK = True
+            if e.button == 5: playstate.scrollup = True
+            if e.button == 4: playstate.scrolldown = True
         
         if e.type == MOUSEBUTTONUP and e.button == 1: playstate.CLICK = False
         

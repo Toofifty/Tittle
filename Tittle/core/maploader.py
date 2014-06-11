@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import base
+import traceback
 
 from base import *
 from tile import tile, TILE_SIZE
@@ -25,24 +26,22 @@ class map(object):
         collision_tiles = []
         display_tiles = pygame.sprite.Group()
         x = y = tc = 0
-        for set in info:
-            for row in self.map_array:
-                for col in row:
-                    if col == set[0]:
-                        t = tile(x, y, set[1], (set[2]*TILE_SIZE, 
-                                                set[3]*TILE_SIZE,
-                                                TILE_SIZE, 
-                                                TILE_SIZE))
+        for row in self.map_array:
+            for col in row:
+                if col != " ":
+                    t = tile(x, y,
+                             info[col][0],
+                             (info[col][1]*TILE_SIZE, 
+                                            info[col][2]*TILE_SIZE,
+                                            TILE_SIZE, 
+                                            TILE_SIZE))
+                    if info[col][3]:
                         collision_tiles.append(t)
-                        display_tiles.add(t)
-                        tc += 1
-                    x += 32
-                y += 32
-                x = 0
-            print(str(tc) + " tiles created in set: " + set[0])
-            tc = 0
-            
-        print collision_tiles
+                    display_tiles.add(t)
+                    tc += 1
+                x += 32
+            y += 32
+            x = 0
         return collision_tiles, display_tiles
     
     def width(self):
@@ -53,18 +52,28 @@ class map(object):
     
     def info(self):
         info = base.read('../Tittle/assets/maps/' + self.name + '_info.txt')
-        tile_types = []
+        tile_types = {}
         for line in info:
             if '!def ' in line:
                 try:
-                    line = line.replace('!def ', '')
+                    if ' ^' in line:
+                        line = line.replace('!def ^','')
+                        clip = False
+                    else:
+                        line = line.replace('!def ', '')
+                        clip = True
                     id, loc = line.split(': ', 1)
                     loc = loc.replace(')','')
                     sheet, pos = loc.split('(', 1)
                     pos_x, pos_y = pos.split(',', 1)
-                    tile_types.append((id, sheet, int(pos_x), int(pos_y)))
+                    tile_types.setdefault(id,[])
+                    tile_types[id].append(sheet)
+                    tile_types[id].append(int(pos_x))
+                    tile_types[id].append(int(pos_y))
+                    tile_types[id].append(clip)
                 except:
                     print("Error gathering info")
+                    traceback.print_exc()
                     raise SystemExit
             elif 'type: ' in line:
                 self.type = line.replace('type: ', '')

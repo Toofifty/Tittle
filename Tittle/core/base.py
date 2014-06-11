@@ -26,6 +26,7 @@ MAPS_FOLDER = 'assets/maps/'
 
 FPS = 30
 TILE_SIZE = 32
+SIZE_MULTIPLIER = 2
    
 """
 Simple text drawer, magically draws cool text
@@ -118,6 +119,7 @@ class animload(object):
     def __init__(self, file, rect, frames, loop = True):
         self.sheet = sheetload(file)
         self.images = self.sheet.getstrip(rect, frames)
+        self.rect = rect
         self.i = 0
         self.f = 2
         self.loop = loop
@@ -137,6 +139,11 @@ class animload(object):
         if self.f == 0:
             self.i += 1
             self.f = self.frames
+            
+        print self.rect
+            
+        if SIZE_MULTIPLIER != 1:
+            image = pygame.transform.scale(image, (SIZE_MULTIPLIER * self.rect[2], SIZE_MULTIPLIER * self.rect[3]))
         return image
 
 class pixeltext(object):

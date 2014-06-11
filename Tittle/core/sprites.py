@@ -48,7 +48,7 @@ class gameSprite(pygame.sprite.DirtySprite):
     """
     Set a animation and strip for a sprite
     """
-    def setAnim(self, ss, pos, size_mult = 1, loop = True, frames = 8, fps_mult = 1):
+    def setAnim(self, ss, pos, size_mult = SIZE_MULTIPLIER, loop = True, frames = 8, fps_mult = 1):
         try:
             self.size_mult = size_mult
             self.pos = pos
@@ -65,7 +65,7 @@ class gameSprite(pygame.sprite.DirtySprite):
     """
     Loads a sprite's image from it's own file
     """
-    def setSingle(self, image_path, size_mult = 1, angle = None):
+    def setSingle(self, image_path, size_mult = SIZE_MULTIPLIER, angle = None):
         self.image = pygame.image.load(SPRITES_FOLDER + image_path).convert_alpha()
         self.rect = pygame.Rect(self.image.get_rect())
         if not size_mult == 1: 

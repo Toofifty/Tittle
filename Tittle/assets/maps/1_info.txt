@@ -1,7 +1,20 @@
 type: Normal
-!def B: static(0,1)
-!def A: static(2,13)
-!def C: static(3,0)
+!def A: static(1,13)
+!def a: static(2,13)
+!def B: static(1,12)
+!def b: static(2,12)
+!def C: static(0,12)
+!def c: static(3,12)
+!def D: static(0,13)
+!def d: static(3,13)
+!def E: static(0,14)
+!def e: static(3,14)
+!def F: static(0,15)
+!def f: static(3,15)
+!def G: static(1,14)
+!def g: static(2,14)
+!def H: static(1,15)
+!def h: static(2,15)
 
 doesn't really read any other text here, so sd f
 s

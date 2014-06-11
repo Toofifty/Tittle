@@ -1,0 +1,36 @@
+type: Normal
+!def A: static(1,0)
+
+!def a: static(2,0)
+# a is variant bulk
+!def B: static(1,1)
+# B is variant bulk
+!def b: static(2,1)
+# b is variant bulk
+
+!def ^C: static(0,0)
+# C is bottom-right
+!def ^c: static(0,1)
+# c is bottom-left
+
+!def ^D: static(0,2)
+# D is top-cover
+!def ^d: static(0,4)
+# d is bottom-cover
+
+!def ^E: static(1,3)
+# E is right-cover
+!def ^e: static(2,3)
+# e is left-cover
+!def ^$: static(3,3)
+# $ is both-cover
+
+!def ^F: static(1,2)
+# F is top-right-cover
+!def ^f: static(2,2)
+# f is top-left-cover
+
+!def ^G: static(1,4)
+# G is bottom-right-cover
+!def ^g: static(2,4)
+# g is bottom-left-cover

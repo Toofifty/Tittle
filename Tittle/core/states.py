@@ -49,21 +49,10 @@ def startGame(cont = False):
     global mtext
     mtext = ''
     
-    player = Tittle()
     mouse = cursor((VIEW_WIDTH/2, VIEW_HEIGHT/2))
-    #mtext = cursortext('Test text',(VIEW_WIDTH/2, VIEW_HEIGHT/2))
+    mtext = cursortext('Hover text',(VIEW_WIDTH/2, VIEW_HEIGHT/2))
     
-    global TILES
-    global tiles
-        
-    current_map = maploader.map('1')
-    TILES, tiles = current_map.build()
-    
-    ps = playState(player, camera(
-                                  complex_camera,
-                                  current_map.width(),
-                                  current_map.height())
-                   )
+    ps = playState('2')
     ps.run()
 
 """
@@ -75,19 +64,22 @@ class playState(object):
     """
     Define all of the object's variables in the __init__
     """
-    def __init__(self, player, camera):
+    def __init__(self, map):
         self.UP = self.DOWN = self.LEFT = self.RIGHT = self.RUNNING = self.CLICK = False
         self.camleft = self.camright = False
+        self.scrollup = self.scrolldown = False
         # 'bind' classes to the playstate class, for later use,
         # instead of leaving them floating in the 'global' realm
-        self.player = player
-        self.camera = camera
+        self.player = Tittle()
+        self.map = maploader.map('2')
+        self.TILES, self.tiles = self.map.build()
+        self.camera = camera(complex_camera, self.map.width(), self.map.height())
 
     """
     Draw the tiles that are in the array 'tiles'
     """
-    def drawTiles(self, tiles):
-        for t in tiles:
+    def drawTiles(self):
+        for t in self.tiles:
             screen.blit(t.image, self.camera.apply(t))
             
     """
@@ -100,12 +92,12 @@ class playState(object):
         self.camera.move(self.camleft, self.camright)
         self.camera.update(self.player)
         
-        self.player.update(self.UP, self.DOWN, self.LEFT, self.RIGHT, self.RUNNING, TILES)
+        self.player.update(self.UP, self.DOWN, self.LEFT, self.RIGHT, self.RUNNING, self.TILES)
         mouse.update(pygame.mouse.get_pos(), self.CLICK)
         if mtext:
             mtext.update(pygame.mouse.get_pos())     
         
-        self.drawTiles(tiles)
+        self.drawTiles()
         
         screen.blit(self.player.image, self.camera.apply(self.player))
         screen.blit(mouse.image, mouse.rect)
